@@ -8,6 +8,17 @@
     height: auto;
 }
 
+.med {
+    width: 50%;
+    height: 50%;
+}
+.left{
+    padding-left: 3em;
+    padding-right: 3em;
+    padding-bottom: 3em;
+    text-align: left;
+}
+
 .starter-template {
     padding: 3rem 1.5rem;
     text-align: center;

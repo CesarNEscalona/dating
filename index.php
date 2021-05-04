@@ -6,11 +6,12 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Start a session
-session_start();
-
 // Require autoload file
 require_once ('vendor/autoload.php');
+
+// Start a session
+session_start();
+// var_dump($_SESSION);
 
 // Instantiate Fat-Fre
 $f3 = Base::instance();
@@ -50,7 +51,7 @@ $f3->route('GET|POST /profile', function(){
         $_SESSION['email'] = $_POST['email'];
         $_SESSION['state'] = $_POST['state'];
         $_SESSION['bio'] = $_POST['bio'];
-        $_SESSION['method'] = $_POST['method'];
+        $_SESSION['seeking'] = $_POST['seeking'];
         header('location: interests');
     }
 
@@ -71,6 +72,13 @@ $f3->route('GET|POST /interests', function(){
     // Display the home page
     $view = new Template();
     echo $view->render('views/interests.html');
+});
+
+$f3->route('GET /summary', function(){
+
+    //Display the second order form
+    $view = new Template();
+    echo $view->render('views/summary.html');
 });
 
 // Run Fat-Free
