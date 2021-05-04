@@ -11,7 +11,6 @@ require_once ('vendor/autoload.php');
 
 // Start a session
 session_start();
-// var_dump($_SESSION);
 
 // Instantiate Fat-Fre
 $f3 = Base::instance();
@@ -28,7 +27,6 @@ $f3->route('GET|POST /info', function(){
     //If the form has been submitted, add the data to session
     //and send the user to the next page
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // echo var_dump($_POST);
         $_SESSION['fname'] = $_POST['fname'];
         $_SESSION['lname'] = $_POST['lname'];
         $_SESSION['age'] = $_POST['age'];
@@ -47,7 +45,6 @@ $f3->route('GET|POST /profile', function(){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // If the form has been submitted add the data to session
         // and send the user to the next page
-        // echo var_dump($_POST);
         $_SESSION['email'] = $_POST['email'];
         $_SESSION['state'] = $_POST['state'];
         $_SESSION['bio'] = $_POST['bio'];
