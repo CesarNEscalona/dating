@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 
 // Require autoload file
 require_once ('vendor/autoload.php');
+require_once('model/validation.php');
 
 // Start a session
 session_start();
@@ -23,17 +24,43 @@ $f3->route('GET /', function(){
     echo $view->render('views/home.html');
 });
 
-$f3->route('GET|POST /info', function(){
+$f3->route('GET|POST /info', function($f3){
+    // Reinitialize the session array
+    $_SESSION = array();
+
+    // initialize all variables to store user input
+    $userName = "";
+    $userAge = 0;
+    $userPhone = 0;
+    $userEmail = "";
+    $userOutdoor = array();
+    $userIndoor = array();
+
     //If the form has been submitted, add the data to session
     //and send the user to the next page
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $_SESSION['fname'] = $_POST['fname'];
+        $userName = $_POST['fname'];
+        if(validName($userName)) {
+            $_SESSION['fname'] = $userName;
+        } else {
+            $f3->set('errors["name"]', 'Please enter a valid first name');
+        }
+
         $_SESSION['lname'] = $_POST['lname'];
         $_SESSION['age'] = $_POST['age'];
         $_SESSION['method'] = $_POST['method'];
         $_SESSION['phoneNumber'] = $_POST['phoneNumber'];
-        header('location: profile');
+
+        //If the error array is empty, redirect to summary page
+        if (empty($f3->get('errors'))) {
+            // Redirect
+            header('location: profile');
+        }
+
     }
+
+    // Add the data to the hive
+    $f3->set('userName', $userName);
 
     // Display the personal page
     $view = new Template();
