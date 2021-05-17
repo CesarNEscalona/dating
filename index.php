@@ -30,7 +30,8 @@ $f3->route('GET|POST /info', function($f3){
 
     // initialize all variables to store user input
     $userName = "";
-    $userAge = 0;
+    $userLName = "";
+    $userAge = "";
     $userPhone = 0;
     $userEmail = "";
     $userOutdoor = array();
@@ -39,6 +40,8 @@ $f3->route('GET|POST /info', function($f3){
     //If the form has been submitted, add the data to session
     //and send the user to the next page
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        // First Name
         $userName = $_POST['fname'];
         if(validName($userName)) {
             $_SESSION['fname'] = $userName;
@@ -46,8 +49,23 @@ $f3->route('GET|POST /info', function($f3){
             $f3->set('errors["name"]', 'Please enter a valid first name');
         }
 
-        $_SESSION['lname'] = $_POST['lname'];
-        $_SESSION['age'] = $_POST['age'];
+        // Last Name
+        $userLName = $_POST['lname'];
+        if(validName($userLName)) {
+            $_SESSION['lname'] = $userLName;
+        } else {
+            $f3->set('errors["lName"]', 'Please enter a valid last name');
+        }
+
+        // Age
+        $userAge = $_POST['age'];
+        if(validAge($userAge)) {
+            $_SESSION['age'] = $userAge;
+        } else {
+            $f3->set('errors["Age"]', 'Please enter an age between 18 and 118');
+        }
+
+
         $_SESSION['method'] = $_POST['method'];
         $_SESSION['phoneNumber'] = $_POST['phoneNumber'];
 
@@ -61,6 +79,8 @@ $f3->route('GET|POST /info', function($f3){
 
     // Add the data to the hive
     $f3->set('userName', $userName);
+    $f3->set('userLName', $userLName);
+    $f3->set('Age', $userAge);
 
     // Display the personal page
     $view = new Template();

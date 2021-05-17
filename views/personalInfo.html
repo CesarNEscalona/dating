@@ -25,12 +25,24 @@
                         <br>
                  <!-- End of First Name -->
 
-                        <label for="lname"><strong>Last Name</strong></label>
-                        <input class="form-control" type="text" name="lname" id="lname"><br>
+                        <label><strong>Last Name</strong></label>
+                        <input class="form-control" type="text" name="lname" id="lname"
+                               value="{{ @userLName }}">
+                        <check if="{{ isset(@errors['lName']) }}">
+                            <!-- add styles -->
+                            <span class="err">{{ @errors['lName'] }}</span>
+                        </check>
+                        <br>
                  <!-- End of Last Name -->
 
-                        <label for="age"><strong>Age</strong></label>
-                        <input class="form-control" type="text" name="age" id="age"><br>
+                        <label><strong>Age</strong></label>
+                        <input class="form-control" type="text" name="age" id="age"
+                        value="{{ @Age }}">
+                        <check if="{{ isset(@errors['Age']) }}">
+                            <!-- add styles -->
+                            <span class="err">{{ @errors['Age'] }}</span>
+                        </check>
+                        <br>
                 <!-- End of Age -->
 
                         <p><strong>Gender</strong></p>

@@ -9,7 +9,20 @@ function validName($name){
 }
 
 function validAge($age){
-    return !empty($age);
+    $lower = 18;
+    $higher = 118;
+    if($age == "") {
+        return !empty($age);
+    }
+    else if(ctype_digit($age)) {
+        if($age < $lower) {
+            return !ctype_digit($age);
+        } else if($age > $higher) {
+            return !ctype_digit($age);
+        }
+        return $age;
+    }
+    return $age;
 }
 
 function validPhone($phoneNum){
