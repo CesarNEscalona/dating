@@ -32,10 +32,7 @@ $f3->route('GET|POST /info', function($f3){
     $userName = "";
     $userLName = "";
     $userAge = "";
-    $userPhone = 0;
-    $userEmail = "";
-    $userOutdoor = array();
-    $userIndoor = array();
+    $userPhone = "";
 
     //If the form has been submitted, add the data to session
     //and send the user to the next page
@@ -65,45 +62,74 @@ $f3->route('GET|POST /info', function($f3){
             $f3->set('errors["Age"]', 'Please enter an age between 18 and 118');
         }
 
+        // Phone number
+        $userPhone = $_POST['phoneNumber'];
+        if(validPhone($userPhone)) {
+            $_SESSION['phoneNumber'] = $userPhone;
+        } else {
+            $f3->set('errors["phoneNum"]', 'Please enter a valid phone number with dashes E.g. 253-123-4567');
+        }
 
+        // method check for male or female
         $_SESSION['method'] = $_POST['method'];
-        $_SESSION['phoneNumber'] = $_POST['phoneNumber'];
 
         //If the error array is empty, redirect to summary page
         if (empty($f3->get('errors'))) {
             // Redirect
             header('location: profile');
         }
-
-    }
+    } // End of if form is submitted
 
     // Add the data to the hive
     $f3->set('userName', $userName);
     $f3->set('userLName', $userLName);
     $f3->set('Age', $userAge);
+    $f3->set('phoneNum', $userPhone);
 
     // Display the personal page
     $view = new Template();
     echo $view->render('views/personalInfo.html');
 });
 
-$f3->route('GET|POST /profile', function(){
+// Profile page
+$f3->route('GET|POST /profile', function($f3){
+
+    // initialize all variables to store user input
+    $userEmail = "";
+    $userOutdoor = array();
+    $userIndoor = array();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // If the form has been submitted add the data to session
-        // and send the user to the next page
-        $_SESSION['email'] = $_POST['email'];
+
+        // Email
+        $userEmail = $_POST['email'];
+        if(validEmail($userEmail)) {
+            $_SESSION['email'] = $userEmail;
+        } else {
+            $f3->set('errors["Email"]', 'Please enter a valid email that contains "@" and ".com"');
+        }
+
+        // save the rest of optional data
         $_SESSION['state'] = $_POST['state'];
         $_SESSION['bio'] = $_POST['bio'];
         $_SESSION['seeking'] = $_POST['seeking'];
-        header('location: interests');
+
+        //If the error array is empty, redirect to summary page
+        if (empty($f3->get('errors'))) {
+            // Redirect
+            header('location: interests');
+        }
     }
+
+    // Add the data to the hive
+    $f3->set('Email', $userEmail);
 
     // Display the home page
     $view = new Template();
     echo $view->render('views/profile.html');
 });
 
+// Interests page
 $f3->route('GET|POST /interests', function(){
     // If the form has been submitted add the data to session
     // and send the user to the next page

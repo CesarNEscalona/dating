@@ -26,11 +26,26 @@ function validAge($age){
 }
 
 function validPhone($phoneNum){
-    return !empty($phoneNum);
+    if($phoneNum == "") {
+        return !empty($phoneNum);
+    } else if(ctype_digit($phoneNum)){
+        return $phoneNum;
+    }
+    return $phoneNum;
 }
 
 function validEmail($email){
-    return !empty($email);
+    $symbol = "/@/i";
+    $pattern = "/.com/i";
+
+    if($email == "") {
+        return !empty($email);
+    }
+    else if(preg_match($symbol, $email)) {
+        if(preg_match($pattern, $email)){
+            return $email;
+        }
+    }
 }
 
 function validOutdoor($oInterests){

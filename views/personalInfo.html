@@ -61,7 +61,13 @@
                 <!-- End of Gender radio buttons -->
 
                         <label for="phoneNumber"><strong>Phone Number</strong></label>
-                        <input class="form-control" type="text" name="phoneNumber" id="phoneNumber">
+                        <input class="form-control" type="tel" name="phoneNumber" id="phoneNumber"
+                               placeholder="253-123-4567" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                               value="{{ @phoneNum }}">
+                        <check if="{{ isset(@errors['phoneNum']) }}">
+                            <!-- add styles -->
+                            <span class="err">{{ @errors['phoneNum'] }}</span>
+                        </check>
                  <!-- End of Phone Number -->
                     </div>
 

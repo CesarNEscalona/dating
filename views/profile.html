@@ -16,7 +16,13 @@
 
                     <div class="col-md-6">
                         <label for="email"><strong>Email</strong></label>
-                        <input class="form-control" type="text" name="email" id="email"><br>
+                        <input class="form-control" type="text" name="email" id="email"
+                               value="{{ @Email }}">
+                        <check if="{{ isset(@errors['Email']) }}">
+                            <!-- add styles -->
+                            <span class="err">{{ @errors['Email'] }}</span>
+                        </check>
+                        <br>
                      <!-- End of Email -->
 
                         <label for="state"><strong>State</strong></label>
