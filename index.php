@@ -9,6 +9,7 @@ error_reporting(E_ALL);
 // Require autoload file
 require_once ('vendor/autoload.php');
 require_once('model/validation.php');
+require_once('model/data-layer.php');
 
 // Start a session
 session_start();
@@ -96,11 +97,8 @@ $f3->route('GET|POST /profile', function($f3){
 
     // initialize all variables to store user input
     $userEmail = "";
-    $userOutdoor = array();
-    $userIndoor = array();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
         // Email
         $userEmail = $_POST['email'];
         if(validEmail($userEmail)) {
@@ -130,20 +128,54 @@ $f3->route('GET|POST /profile', function($f3){
 });
 
 // Interests page
-$f3->route('GET|POST /interests', function(){
+$f3->route('GET|POST /interests', function($f3){
+    // initialize all variables to store user input
+    $userOutdoor = array();
+    $userIndoor = array();
+
     // If the form has been submitted add the data to session
     // and send the user to the next page
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $_SESSION['iInterests'] = implode(", ", $_POST['iInterests']);
-        $_SESSION['oInterests'] = implode(", ", $_POST['oInterests']);
-        header('location: summary');
+        if(!empty($_POST['iInterests'])){
+            $userIndoor = $_POST['iInterests'];
+            // Check if the options are valid or not
+            if(validIndoor($userIndoor)){
+                $_SESSION['iInterests'] = implode(", ", $userIndoor);
+            }
+        }
+        else {
+            // if the indoor interests are empty and/or not valid, display an error
+            $f3->set('errors["inDoorInterests"]', 'You must select a valid option');
+        }
+
+        //If the error array is empty, redirect to summary page
+        if (empty($f3->get('errors'))) {
+            // Redirect
+            header('location: summary');
+        }
+
+
+
+        // $_SESSION['iInterests'] = implode(", ", $_POST['iInterests']);
+        // $_SESSION['oInterests'] = implode(", ", $_POST['oInterests']);
+
+
+
     }
 
-    // Display the home page
+    //Get the data from the Model and send them to the View
+    $f3->set('indoorInterests', getIndoorInterests());
+    // $f3->set('outdoorInterests', getOutoorInterests());
+
+    // Add the data to the hive
+    $f3->set('inDoorInterests', $userIndoor);
+
+    // Display the interests page
     $view = new Template();
     echo $view->render('views/interests.html');
 });
 
+// Summary page
 $f3->route('GET /summary', function(){
 
     //Display the second order form

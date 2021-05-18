@@ -52,6 +52,15 @@ function validOutdoor($oInterests){
     return !empty($oInterests);
 }
 
+// return true if interests are valid
 function validIndoor($iInterests){
-    return !empty($iInterests);
+    $validIndoor = getIndoorInterests();
+    foreach ( $iInterests as $userInterests) {
+        if(!in_array($userInterests, $validIndoor)){
+            return false;
+        }
+    }
+    return true;
+
+    // return in_array($iInterests, getIndoorInterests());
 }

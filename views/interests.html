@@ -18,59 +18,18 @@
                 <div class="container">
                 <div class="row">
                     <div class="col">
-                        <input class="form-check form-check-inline" type="checkbox"
-                               value="Tv" id="tv" name="iInterests[]">
-                        <label class="form-check-label" for="tv">
-                            Tv
-                        </label><br>
-
-                        <input class="form-check form-check-inline" type="checkbox"
-                               value="Puzzles" id="puzzles" name="iInterests[]">
-                        <label class="form-check-label" for="puzzles">
-                            Puzzles
-                        </label>
-                    </div>
-
-                    <div class="col">
-                        <input class="form-check form-check-inline" type="checkbox"
-                               value="Movies" id="movies" name="iInterests[]">
-                        <label class="form-check-label" for="movies">
-                            Movies
-                        </label><br>
-
-                        <input class="form-check form-check-inline" type="checkbox"
-                               value="Reading" id="reading" name="iInterests[]">
-                        <label class="form-check-label" for="reading">
-                            Reading
-                        </label>
-                    </div>
-
-                    <div class="col">
-                        <input class="form-check form-check-inline" type="checkbox"
-                               value="Cooking" id="cooking" name="iInterests[]">
-                        <label class="form-check-label" for="cooking">
-                            Cooking
-                        </label><br>
-
-                        <input class="form-check form-check-inline" type="checkbox"
-                               value="Play Cards" id="pCards" name="iInterests[]">
-                        <label class="form-check-label" for="pCards">
-                            Playing Cards
-                        </label>
-                    </div>
-
-                    <div class="col">
-                        <input class="form-check form-check-inline" type="checkbox"
-                               value="Board Games" id="bGames" name="iInterests[]">
-                        <label class="form-check-label" for="bGames">
-                            Board Games
-                        </label><br>
-
-                        <input class="form-check form-check-inline" type="checkbox"
-                               value="Video Games" id="vGames" name="iInterests[]">
-                        <label class="form-check-label" for="vGames">
-                            Video Games
-                        </label>
+                        <repeat group="{{ @indoorInterests  }}" value="{{ @indoor }}">
+                            <label><input class="form-check form-check-inline"
+                                          type="checkbox" value="{{ @indoor }}"
+                                          id="{{ @indoor }}" name="iInterests[]"
+                                <check if="{{ in_array(@indoor, @inDoorInterests) }}">
+                                </check>
+                            > {{ ucfirst(@indoor) }} </label><br>
+                        </repeat>
+                        <check if="{{ isset(@errors['inDoorInterests']) }}">
+                            <!-- add styles -->
+                            <span class="err">{{ @errors['inDoorInterests'] }}</span>
+                        </check>
                     </div>
                 </div>
                 </div>
