@@ -1,7 +1,7 @@
 <!--
     Author: Cesar Escalona
     SDEV 328 Full Stack Web Dev
-    Dating part 2
+    Dating part 3
 -->
 
 <include href="views/header.html"/>
@@ -64,6 +64,7 @@
                         <input class="form-control" type="tel" name="phoneNumber" id="phoneNumber"
                                placeholder="253-123-4567" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                value="{{ @phoneNum }}">
+                        <p class="text-muted">Phone number above must match this format: 123-456-7890</p>
                         <check if="{{ isset(@errors['phoneNum']) }}">
                             <!-- add styles -->
                             <span class="err">{{ @errors['phoneNum'] }}</span>

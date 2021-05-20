@@ -7,7 +7,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Require autoload file
-require_once ('vendor/autoload.php');
+require_once('vendor/autoload.php');
 require_once('model/validation.php');
 require_once('model/data-layer.php');
 
@@ -18,14 +18,14 @@ session_start();
 $f3 = Base::instance();
 
 // Define default route
-$f3->route('GET /', function(){
+$f3->route('GET /', function () {
 
     // Display the home page
     $view = new Template();
     echo $view->render('views/home.html');
 });
 
-$f3->route('GET|POST /info', function($f3){
+$f3->route('GET|POST /info', function ($f3) {
     // Reinitialize the session array
     $_SESSION = array();
 
@@ -41,7 +41,7 @@ $f3->route('GET|POST /info', function($f3){
 
         // First Name
         $userName = $_POST['fname'];
-        if(validName($userName)) {
+        if (validName($userName)) {
             $_SESSION['fname'] = $userName;
         } else {
             $f3->set('errors["name"]', 'Please enter a valid first name');
@@ -49,7 +49,7 @@ $f3->route('GET|POST /info', function($f3){
 
         // Last Name
         $userLName = $_POST['lname'];
-        if(validName($userLName)) {
+        if (validName($userLName)) {
             $_SESSION['lname'] = $userLName;
         } else {
             $f3->set('errors["lName"]', 'Please enter a valid last name');
@@ -57,7 +57,7 @@ $f3->route('GET|POST /info', function($f3){
 
         // Age
         $userAge = $_POST['age'];
-        if(validAge($userAge)) {
+        if (validAge($userAge)) {
             $_SESSION['age'] = $userAge;
         } else {
             $f3->set('errors["Age"]', 'Please enter an age between 18 and 118');
@@ -65,7 +65,7 @@ $f3->route('GET|POST /info', function($f3){
 
         // Phone number
         $userPhone = $_POST['phoneNumber'];
-        if(validPhone($userPhone)) {
+        if (validPhone($userPhone)) {
             $_SESSION['phoneNumber'] = $userPhone;
         } else {
             $f3->set('errors["phoneNum"]', 'Please enter a valid phone number with dashes E.g. 253-123-4567');
@@ -93,7 +93,7 @@ $f3->route('GET|POST /info', function($f3){
 });
 
 // Profile page
-$f3->route('GET|POST /profile', function($f3){
+$f3->route('GET|POST /profile', function ($f3) {
 
     // initialize all variables to store user input
     $userEmail = "";
@@ -101,7 +101,7 @@ $f3->route('GET|POST /profile', function($f3){
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Email
         $userEmail = $_POST['email'];
-        if(validEmail($userEmail)) {
+        if (validEmail($userEmail)) {
             $_SESSION['email'] = $userEmail;
         } else {
             $f3->set('errors["Email"]', 'Please enter a valid email that contains "@" and ".com"');
@@ -128,24 +128,34 @@ $f3->route('GET|POST /profile', function($f3){
 });
 
 // Interests page
-$f3->route('GET|POST /interests', function($f3){
+$f3->route('GET|POST /interests', function ($f3) {
     // initialize all variables to store user input
     $userOutdoor = array();
     $userIndoor = array();
 
-    // If the form has been submitted add the data to session
-    // and send the user to the next page
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        if(!empty($_POST['iInterests'])){
+    // If the form has been submitted...
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (!empty($_POST['iInterests'])) {
             $userIndoor = $_POST['iInterests'];
             // Check if the options are valid or not
-            if(validIndoor($userIndoor)){
+            if (validIndoor($_POST['iInterests'])) {
                 $_SESSION['iInterests'] = implode(", ", $userIndoor);
+            } else {
+                // if the indoor interests are empty and/or not valid, display an error
+                $f3->set('errors["inDoorInterests"]', 'You must select a valid indoor interest');
             }
         }
-        else {
-            // if the indoor interests are empty and/or not valid, display an error
-            $f3->set('errors["inDoorInterests"]', 'You must select a valid option');
+
+        // Check if outdoor interests has a post
+        if (!empty($_POST['oInterests'])) {
+            $userOutdoor = $_POST['oInterests'];
+            // Check if the options are valid or not
+            if (validOutdoor($_POST['oInterests'])) {
+                $_SESSION['oInterests'] = implode(", ", $userOutdoor);
+            } else {
+                // if the indoor interests are empty and/or not valid, display an error
+                $f3->set('errors["outDoorInterests"]', 'You must select a valid outdoor interest');
+            }
         }
 
         //If the error array is empty, redirect to summary page
@@ -153,22 +163,15 @@ $f3->route('GET|POST /interests', function($f3){
             // Redirect
             header('location: summary');
         }
-
-
-
-        // $_SESSION['iInterests'] = implode(", ", $_POST['iInterests']);
-        // $_SESSION['oInterests'] = implode(", ", $_POST['oInterests']);
-
-
-
     }
 
     //Get the data from the Model and send them to the View
     $f3->set('indoorInterests', getIndoorInterests());
-    // $f3->set('outdoorInterests', getOutoorInterests());
+    $f3->set('outdoorInterests', getOutdoorInterests());
 
     // Add the data to the hive
     $f3->set('inDoorInterests', $userIndoor);
+    $f3->set('outDoorInterests', $userOutdoor);
 
     // Display the interests page
     $view = new Template();
@@ -176,7 +179,7 @@ $f3->route('GET|POST /interests', function($f3){
 });
 
 // Summary page
-$f3->route('GET /summary', function(){
+$f3->route('GET /summary', function () {
 
     //Display the second order form
     $view = new Template();

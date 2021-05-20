@@ -1,7 +1,7 @@
 <!--
     Author: Cesar Escalona
     SDEV 328 Full Stack Web Dev
-    Dating part 2
+    Dating part 3
 -->
 
 <include href="views/header.html"/>
@@ -10,99 +10,103 @@
     <div class="row">
         <div class="col-sm">
             <br>
-            <h1><strong>Interests</strong></h1><hr>
-
+            <h1><strong>Interests</strong></h1>
+            <hr>
             <form action="#" method="post" class="form">
                 <!-- Starting Indoor interests -->
                 <h4><strong>In-door Interests</strong></h4>
                 <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <repeat group="{{ @indoorInterests  }}" value="{{ @indoor }}">
-                            <label><input class="form-check form-check-inline"
-                                          type="checkbox" value="{{ @indoor }}"
-                                          id="{{ @indoor }}" name="iInterests[]"
-                                <check if="{{ in_array(@indoor, @inDoorInterests) }}">
-                                </check>
-                            > {{ ucfirst(@indoor) }} </label><br>
-                        </repeat>
-                        <check if="{{ isset(@errors['inDoorInterests']) }}">
-                            <!-- add styles -->
-                            <span class="err">{{ @errors['inDoorInterests'] }}</span>
-                        </check>
-                    </div>
-                </div>
-                </div>
-                    <!-- End of Indoor interests-->
-
-                <!-- Starting Out door interests -->
-                <h4><strong>Out-door Interests</strong></h4>
-                <div class="container">
                     <div class="row">
-                        <div class="col">
-
-                            <input class="form-check form-check-inline" type="checkbox"
-                                   value="Hiking" id="hiking" name="oInterests[]">
-                            <label class="form-check-label" for="hiking">
-                                Hiking
-                            </label><br>
-
-                            <input class="form-check form-check-inline" type="checkbox"
-                                   value="Walking" id="walking" name="oInterests[]">
-                            <label class="form-check-label" for="walking">
-                                Walking
-                            </label>
-                        </div>
-
-                        <div class="col">
-                            <input class="form-check form-check-inline" type="checkbox"
-                                   value="Biking" id="biking" name="oInterests[]">
-                            <label class="form-check-label" for="biking">
-                                Biking
-                            </label><br>
-
-                            <input class="form-check form-check-inline" type="checkbox"
-                                   value="Climbing" id="climbing" name="oInterests[]">
-                            <label class="form-check-label" for="climbing">
-                                Climbing
-                            </label>
-                        </div>
-
-                        <div class="col">
-                            <input class="form-check form-check-inline" type="checkbox"
-                                   value="Swimming" id="swimming" name="oInterests[]">
-                            <label class="form-check-label" for="swimming">
-                                Swimming
-                            </label><br>
-                        </div>
-
-                        <div class="col">
-                            <input class="form-check form-check-inline" type="checkbox"
-                                   value="Collecting" id="collecting" name="oInterests[]">
-                            <label class="form-check-label" for="collecting">
-                                Collecting
-                            </label><br>
-                        </div>
+                        <!-- Repeats columns with 2 interests per col -->
+                        <repeat group="{{ @indoorInterests  }}" value="{{ @indoor }}" counter="{{ @ctr }}">
+                            <check if="{{ @ctr%2}}">
+                                <true>
+                                    <div class="col">
+                                        <label><input class="form-check form-check-inline"
+                                                      type="checkbox" value="{{ @indoor }}"
+                                                      name="iInterests[]"
+                                            <check if="{{ in_array(@indoor, @inDoorInterests) }}">
+                                            </check>
+                                            > {{ ucfirst(@indoor) }} </label><br>
+                                </true>
+                                <false>
+                                    <label><input class="form-check form-check-inline"
+                                                  type="checkbox" value="{{ @indoor }}"
+                                                  name="iInterests[]"
+                                        <check if="{{ in_array(@indoor, @inDoorInterests) }}">
+                                        </check>
+                                        > {{ ucfirst(@indoor) }} </label>
+                                </false>
+                                <!-- This div underneath needs to be here because 1 col contains 2 checkboxes -->
                     </div>
+                    </check>
+                    </repeat>
+                    <!-- Emd of repeat -->
                 </div>
-                <!-- End of Out door interests-->
-
-                <div class="text-right">
-                    <input class="btn btn-primary"
-                           type="submit" value="Next >">
-                    <br> <br>
-                </div> <!-- End of button -->
-
-            </form> <!-- End of Form -->
+                <check if="{{ isset(@errors['inDoorInterests']) }}">
+                    <!-- add styles -->
+                    <span class="err">{{ @errors['inDoorInterests'] }}</span>
+                </check>
         </div>
+        <br>
+        <!-- End of Indoor interests-->
+
+        <!-- Starting Out door interests -->
+        <h4><strong>Out-door Interests</strong></h4>
+        <div class="container">
+            <div class="row">
+                <!-- Repeats columns with 2 interests per col -->
+                <repeat group="{{ @outdoorInterests  }}" value="{{ @outdoor }}" counter="{{ @ctrr }}">
+                    <check if="{{ @ctrr%2}}">
+                        <true>
+                            <div class="col">
+                                <label><input class="form-check form-check-inline"
+                                              type="checkbox" value="{{ @outdoor }}"
+                                              name="oInterests[]"
+                                    <check if="{{ in_array(@outdoor, @outDoorInterests) }}">
+                                    </check>
+                                    > {{ ucfirst(@outdoor) }} </label><br>
+                        </true>
+                        <false>
+                            <label><input class="form-check form-check-inline"
+                                          type="checkbox" value="{{ @outdoor }}"
+                                          name="oInterests[]"
+                                <check if="{{ in_array(@outdoor, @outDoorInterests) }}">
+                                </check>
+                                > {{ ucfirst(@outdoor) }} </label>
+                        </false>
+                        <!-- This div underneath needs to be here because 1 col contains 2 checkboxes -->
+            </div>
+            </check>
+            </repeat>
+            <!-- Emd of repeat -->
+        </div>
+        <check if="{{ isset(@errors['outDoorInterests']) }}">
+            <!-- add styles -->
+            <span class="err">{{ @errors['outDoorInterests'] }}</span>
+        </check>
     </div>
+    <!-- End of Out door interests-->
+
+    <div class="text-right">
+        <input class="btn btn-primary"
+               type="submit" value="Next >">
+        <br> <br>
+    </div> <!-- End of button -->
+    </form> <!-- End of Form -->
+</div>
+</div>
 </div>
 
 <!-- Optional JavaScript; choose one of the two! -->
 
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>
