@@ -15,16 +15,16 @@
             <table class="table table-bordered">
                 <tbody>
                 <tr>
-                    <td>Name: {{ @SESSION.fname }} {{ @SESSION.lname }}</td>
+                    <td>Name: {{ @SESSION.member->getFname() }} {{ @SESSION.member->getLname() }}</td>
                 </tr>
                 <tr>
-                    <td>Gender: {{ @SESSION.method }}</td>
+                    <td>Gender: {{ @SESSION.member->getGender() }}</td>
                 </tr>
                 <tr>
-                    <td>Age: {{ @SESSION.age }}</td>
+                    <td>Age: {{ @SESSION.member->getAge() }}</td>
                 </tr>
                 <tr>
-                    <td>Phone: {{ @SESSION.phoneNumber }}</td>
+                    <td>Phone: {{ @SESSION.member->getPhone() }}</td>
                 </tr>
                 <tr>
                     <td>Email: {{ @SESSION.email }}</td>

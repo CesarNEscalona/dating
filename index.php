@@ -29,11 +29,17 @@ $f3->route('GET|POST /info', function ($f3) {
     // Reinitialize the session array
     $_SESSION = array();
 
+    // Instantiate Member obj ***
+    $member = new Member();
+    $_SESSION['member'] = $member;
+    // var_dump($member);
+
     // initialize all variables to store user input
     $userName = "";
     $userLName = "";
     $userAge = "";
     $userPhone = "";
+    $userGender = "";
 
     //If the form has been submitted, add the data to session
     //and send the user to the next page
@@ -42,7 +48,7 @@ $f3->route('GET|POST /info', function ($f3) {
         // First Name
         $userName = $_POST['fname'];
         if (validName($userName)) {
-            $_SESSION['fname'] = $userName;
+            $_SESSION['member']->setFname($userName);
         } else {
             $f3->set('errors["name"]', 'Please enter a valid first name');
         }
@@ -50,7 +56,7 @@ $f3->route('GET|POST /info', function ($f3) {
         // Last Name
         $userLName = $_POST['lname'];
         if (validName($userLName)) {
-            $_SESSION['lname'] = $userLName;
+            $_SESSION['member']->setLname($userLName);
         } else {
             $f3->set('errors["lName"]', 'Please enter a valid last name');
         }
@@ -58,7 +64,7 @@ $f3->route('GET|POST /info', function ($f3) {
         // Age
         $userAge = $_POST['age'];
         if (validAge($userAge)) {
-            $_SESSION['age'] = $userAge;
+            $_SESSION['member']->setAge($userAge);
         } else {
             $f3->set('errors["Age"]', 'Please enter an age between 18 and 118');
         }
@@ -66,13 +72,14 @@ $f3->route('GET|POST /info', function ($f3) {
         // Phone number
         $userPhone = $_POST['phoneNumber'];
         if (validPhone($userPhone)) {
-            $_SESSION['phoneNumber'] = $userPhone;
+            $_SESSION['member']->setPhone($userPhone);
         } else {
             $f3->set('errors["phoneNum"]', 'Please enter a valid phone number with dashes E.g. 253-123-4567');
         }
 
         // method check for male or female
-        $_SESSION['method'] = $_POST['method'];
+        $userGender = $_POST['method'];
+        $_SESSION['member']->setGender($userGender);
 
         //If the error array is empty, redirect to summary page
         if (empty($f3->get('errors'))) {
