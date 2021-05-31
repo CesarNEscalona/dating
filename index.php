@@ -8,8 +8,6 @@ error_reporting(E_ALL);
 
 // Require autoload file
 require_once('vendor/autoload.php');
-require_once('model/validation.php');
-require_once('model/data-layer.php');
 
 // Start a session
 session_start();
@@ -47,7 +45,7 @@ $f3->route('GET|POST /info', function ($f3) {
 
         // First Name
         $userName = $_POST['fname'];
-        if (validName($userName)) {
+        if (DatingValidation::validName($userName)) {
             $_SESSION['member']->setFname($userName);
         } else {
             $f3->set('errors["name"]', 'Please enter a valid first name');
@@ -55,7 +53,7 @@ $f3->route('GET|POST /info', function ($f3) {
 
         // Last Name
         $userLName = $_POST['lname'];
-        if (validName($userLName)) {
+        if (DatingValidation::validName($userLName)) {
             $_SESSION['member']->setLname($userLName);
         } else {
             $f3->set('errors["lName"]', 'Please enter a valid last name');
@@ -63,7 +61,7 @@ $f3->route('GET|POST /info', function ($f3) {
 
         // Age
         $userAge = $_POST['age'];
-        if (validAge($userAge)) {
+        if (DatingValidation::validAge($userAge)) {
             $_SESSION['member']->setAge($userAge);
         } else {
             $f3->set('errors["Age"]', 'Please enter an age between 18 and 118');
@@ -71,7 +69,7 @@ $f3->route('GET|POST /info', function ($f3) {
 
         // Phone number
         $userPhone = $_POST['phoneNumber'];
-        if (validPhone($userPhone)) {
+        if (DatingValidation::validPhone($userPhone)) {
             $_SESSION['member']->setPhone($userPhone);
         } else {
             $f3->set('errors["phoneNum"]', 'Please enter a valid phone number with dashes E.g. 253-123-4567');
@@ -108,7 +106,7 @@ $f3->route('GET|POST /profile', function ($f3) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Email
         $userEmail = $_POST['email'];
-        if (validEmail($userEmail)) {
+        if (DatingValidation::validEmail($userEmail)) {
             $_SESSION['email'] = $userEmail;
         } else {
             $f3->set('errors["Email"]', 'Please enter a valid email that contains "@" and ".com"');
@@ -145,7 +143,7 @@ $f3->route('GET|POST /interests', function ($f3) {
         if (!empty($_POST['iInterests'])) {
             $userIndoor = $_POST['iInterests'];
             // Check if the options are valid or not
-            if (validIndoor($_POST['iInterests'])) {
+            if (DatingValidation::validIndoor($_POST['iInterests'])) {
                 $_SESSION['iInterests'] = implode(", ", $userIndoor);
             } else {
                 // if the indoor interests are empty and/or not valid, display an error
@@ -157,7 +155,7 @@ $f3->route('GET|POST /interests', function ($f3) {
         if (!empty($_POST['oInterests'])) {
             $userOutdoor = $_POST['oInterests'];
             // Check if the options are valid or not
-            if (validOutdoor($_POST['oInterests'])) {
+            if (DatingValidation::validOutdoor($_POST['oInterests'])) {
                 $_SESSION['oInterests'] = implode(", ", $userOutdoor);
             } else {
                 // if the indoor interests are empty and/or not valid, display an error
