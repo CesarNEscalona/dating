@@ -56,7 +56,7 @@ function validEmail($email)
 // This function checks each selected indoor interest against a list of valid options
 function validIndoor($iInterests)
 {
-    $validIndoor = getIndoorInterests();
+    $validIndoor = DataLayer::getIndoorInterests();
     foreach ($iInterests as $iInterest) {
         if (!in_array($iInterest, $validIndoor)) {
             return false;
@@ -68,7 +68,7 @@ function validIndoor($iInterests)
 // This function checks each selected outdoor interest against a list of valid options
 function validOutdoor($oInterests)
 {
-    $validOutdoor = getOutdoorInterests();
+    $validOutdoor = DataLayer::getOutdoorInterests();
     foreach ($oInterests as $oInterest) {
         if (!in_array($oInterest, $validOutdoor)) {
             return false;

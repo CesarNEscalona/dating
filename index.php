@@ -173,8 +173,8 @@ $f3->route('GET|POST /interests', function ($f3) {
     }
 
     //Get the data from the Model and send them to the View
-    $f3->set('indoorInterests', getIndoorInterests());
-    $f3->set('outdoorInterests', getOutdoorInterests());
+    $f3->set('indoorInterests', DataLayer::getIndoorInterests());
+    $f3->set('outdoorInterests', DataLayer::getOutdoorInterests());
 
     // Add the data to the hive
     $f3->set('inDoorInterests', $userIndoor);
@@ -191,6 +191,8 @@ $f3->route('GET /summary', function () {
     //Display the second order form
     $view = new Template();
     echo $view->render('views/summary.html');
+    // clearing the session bucket
+    unset($_SESSION['member']);
 });
 
 // Run Fat-Free
