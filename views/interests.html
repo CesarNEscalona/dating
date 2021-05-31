@@ -24,18 +24,12 @@
                                     <div class="col">
                                         <label><input class="form-check form-check-inline"
                                                       type="checkbox" value="{{ @indoor }}"
-                                                      name="iInterests[]"
-                                            <check if="{{ in_array(@indoor, @inDoorInterests) }}">
-                                            </check>
-                                            > {{ ucfirst(@indoor) }} </label><br>
+                                                      name="iInterests[]">{{ ucfirst(@indoor) }} </label><br>
                                 </true>
                                 <false>
                                     <label><input class="form-check form-check-inline"
                                                   type="checkbox" value="{{ @indoor }}"
-                                                  name="iInterests[]"
-                                        <check if="{{ in_array(@indoor, @inDoorInterests) }}">
-                                        </check>
-                                        > {{ ucfirst(@indoor) }} </label>
+                                                  name="iInterests[]">{{ ucfirst(@indoor) }} </label>
                                 </false>
                                 <!-- This div underneath needs to be here because 1 col contains 2 checkboxes -->
                     </div>
@@ -62,18 +56,14 @@
                             <div class="col">
                                 <label><input class="form-check form-check-inline"
                                               type="checkbox" value="{{ @outdoor }}"
-                                              name="oInterests[]"
-                                    <check if="{{ in_array(@outdoor, @outDoorInterests) }}">
-                                    </check>
-                                    > {{ ucfirst(@outdoor) }} </label><br>
+                                              name="oInterests[]">
+                                    {{ ucfirst(@outdoor) }} </label><br>
                         </true>
                         <false>
                             <label><input class="form-check form-check-inline"
                                           type="checkbox" value="{{ @outdoor }}"
-                                          name="oInterests[]"
-                                <check if="{{ in_array(@outdoor, @outDoorInterests) }}">
-                                </check>
-                                > {{ ucfirst(@outdoor) }} </label>
+                                          name="oInterests[]">
+                                {{ ucfirst(@outdoor) }} </label>
                         </false>
                         <!-- This div underneath needs to be here because 1 col contains 2 checkboxes -->
             </div>

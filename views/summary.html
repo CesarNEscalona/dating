@@ -15,28 +15,29 @@
             <table class="table table-bordered">
                 <tbody>
                 <tr>
-                    <td>Name: {{ @SESSION.member->getFname() }} {{ @SESSION.member->getLname() }}</td>
+                    <td>Name: {{ @SESSION.user->getFname() }} {{ @SESSION.user->getLname() }}</td>
                 </tr>
                 <tr>
-                    <td>Gender: {{ @SESSION.member->getGender() }}</td>
+                    <td>Gender: {{ @SESSION.user->getGender() }}</td>
                 </tr>
                 <tr>
-                    <td>Age: {{ @SESSION.member->getAge() }}</td>
+                    <td>Age: {{ @SESSION.user->getAge() }}</td>
                 </tr>
                 <tr>
-                    <td>Phone: {{ @SESSION.member->getPhone() }}</td>
+                    <td>Phone: {{ @SESSION.user->getPhone() }}</td>
                 </tr>
                 <tr>
-                    <td>Email: {{ @SESSION.email }}</td>
+                    <td>Email: {{ @SESSION.user->getEmail() }}</td>
                 </tr>
                 <tr>
-                    <td>State: {{ @SESSION.state }}</td>
+                    <td>State: {{ @SESSION.user->getState() }}</td>
                 </tr>
                 <tr>
-                    <td>Seeking: {{ @SESSION.seeking }}</td>
+                    <td>Seeking: {{ @SESSION.user->getSeeking() }}</td>
                 </tr>
                 <tr>
-                    <td>Interests: {{ @SESSION.iInterests }} {{ @SESSION.oInterests }}</td>
+                    <!-- @Session.user->get.... is an array, so find a way to display whats in that array  -->
+                    <td>Interests: {{ implode(' ', @SESSION.user->getInDoorInterests()) }} {{ implode(' ',@SESSION.user->getOutDoorInterests()) }}</td>
                 </tr>
                 </tbody>
             </table> <!-- End of Table -->
@@ -46,7 +47,7 @@
             <img src="images/stock2.png" alt="Stock Profile Photo" class="rounded image-fluid max-width">
 
             <h2 class="text-left">Biography</h2>
-            <p class="text-center"> {{ @SESSION.bio }} </p>
+            <p class="text-center"> {{ @SESSION.user->getBio() }} </p>
             <br>
 
             <div class="row">
