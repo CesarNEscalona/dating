@@ -22,34 +22,32 @@ class Controller
     // personal info page
     function personalInfo()
     {
-        // Reinitialize the session array
-        //$_SESSION = array();
 
         // Instantiate Member or Prem member obj *** based on checkbox isset
-        if(!isset($_POST['premium'])){
-            $user = new Member();
-            $_SESSION['user'] = $user;
-        } else {
+        if(isset($_POST['premium'])){
             $user = new PremiumMember();
-            $_SESSION['user'] = $user;
+        } else {
+            $user = new Member();
         }
         // var_dump($member);
 
-        // initialize all variables to store user input
-        $userName = "";
-        $userLName = "";
-        $userAge = "";
-        $userPhone = "";
-        $userGender = "";
+
+
 
         //If the form has been submitted, add the data to session
         //and send the user to the next page
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+            $user->setFname($_POST['fname']);
+            $user->setLname($_POST['lname']);
+            $user->setAge($_POST['age']);
+            $user->setPhone($_POST['phoneNumber']);
+            $user->setGender($_POST['method']);
+
             // First Name
             $userName = $_POST['fname'];
             if (DatingValidation::validName($userName)) {
-                $_SESSION['user']->setFname($userName);
+                $user->setFname($userName);
             } else {
                 $this->_f3->set('errors["name"]', 'Please enter a valid first name');
             }
@@ -57,7 +55,7 @@ class Controller
             // Last Name
             $userLName = $_POST['lname'];
             if (DatingValidation::validName($userLName)) {
-                $_SESSION['user']->setLname($userLName);
+                $user->setLname($userLName);
             } else {
                 $this->_f3->set('errors["lName"]', 'Please enter a valid last name');
             }
@@ -65,7 +63,7 @@ class Controller
             // Age
             $userAge = $_POST['age'];
             if (DatingValidation::validAge($userAge)) {
-                $_SESSION['user']->setAge($userAge);
+                $user->setAge($userAge);
             } else {
                 $this->_f3->set('errors["Age"]', 'Please enter an age between 18 and 118');
             }
@@ -73,14 +71,17 @@ class Controller
             // Phone number
             $userPhone = $_POST['phoneNumber'];
             if (DatingValidation::validPhone($userPhone)) {
-                $_SESSION['user']->setPhone($userPhone);
+                $user->setPhone($userPhone);
             } else {
                 $this->_f3->set('errors["phoneNum"]', 'Please enter a valid phone number with dashes E.g. 253-123-4567');
             }
 
             // method check for male or female
             $userGender = $_POST['method'];
-            $_SESSION['user']->setGender($userGender);
+            $user->setGender($userGender);
+
+            // store in the session
+            $_SESSION['user'] = $user;
 
             //If the error array is empty, redirect to summary page
             if (empty($this->_f3->get('errors'))) {
@@ -90,10 +91,12 @@ class Controller
         } // End of if form is submitted
 
         // Add the data to the hive
-        $this->_f3->set('userName', $userName);
-        $this->_f3->set('userLName', $userLName);
-        $this->_f3->set('Age', $userAge);
-        $this->_f3->set('phoneNum', $userPhone);
+        $this->_f3->set('userName', $user->getFname());
+        $this->_f3->set('userLName', $user->getLname());
+        $this->_f3->set('Age', $user->getAge());
+        $this->_f3->set('phoneNum', $user->getPhone());
+        $this->_f3->set('method', $user->getGender());
+        $this->_f3->set('premUser', $_POST['premium']);
 
         // Display the personal page
         $view = new Template();
@@ -104,12 +107,15 @@ class Controller
     {
         // initialize all variables to store user input
         $user = $_SESSION['user'];
-        $userEmail = "";
+        $user->setEmail("");
+        $user->setState("");
+        $user->setSeeking("");
+        $user->setBio("");
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Email
             $userEmail = $_POST['email'];
-            if (DatingValidation::validEmail($userEmail)) {
+            if(DatingValidation::validEmail($userEmail)) {
                 $user->setEmail($userEmail);
             } else {
                 $this->_f3->set('errors["Email"]', 'Please enter a valid email that contains "@" and ".com"');
@@ -122,13 +128,22 @@ class Controller
 
             //If the error array is empty, redirect to summary page
             if (empty($this->_f3->get('errors'))) {
-                // Redirect
-                header('location: interests');
+
+                // if the user is a premium member, send to interests...otherwise, send to summary
+                if($user instanceof PremiumMember){
+                    header('location: interests');
+                } else {
+                    // Redirect
+                    header('location: summary');
+                }
             }
         }
 
-        // Add the data to the hive
-        $this->_f3->set('Email', $user->getEmail());
+        // Add the data to the hive (stickyness)
+        $this->_f3->set('email', $user->getEmail());
+        $this->_f3->set('State', $user->getState());
+        $this->_f3->set('seeking', $user->getSeeking());
+        $this->_f3->set('Bio', $user->getBio());
 
         // Display the home page
         $view = new Template();
@@ -139,13 +154,21 @@ class Controller
     {
         // initialize all variables to store user input
         $user = $_SESSION['user'];
-        //$userOutdoor = array();
-        //$userIndoor = array();
+        $emptyOutdoor = "";
+        $emptyIndoor = "";
 
         // If the form has been submitted...
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $emptyIndoor = $_POST['iInterests'];
+            $emptyOutdoor = $_POST['oInterests'];
+
+
+            if(empty($emptyIndoor && $emptyOutdoor)){
+                $user->setInDoorInterests($emptyIndoor);
+                $user->setOutDoorInterests($emptyOutdoor);
+            }
+
             if (!empty($_POST['iInterests'])) {
-                //$userIndoor = $_POST['iInterests'];
                 // Check if the options are valid or not
                 if (DatingValidation::validIndoor($_POST['iInterests'])) {
                     $user->setInDoorInterests($_POST['iInterests']);
@@ -157,7 +180,6 @@ class Controller
 
             // Check if outdoor interests has a post
             if (!empty($_POST['oInterests'])) {
-                //$userOutdoor = $_POST['oInterests'];
                 // Check if the options are valid or not
                 if (DatingValidation::validOutdoor($_POST['oInterests'])) {
                     $user->setOutDoorInterests($_POST['oInterests']);
@@ -174,13 +196,9 @@ class Controller
             }
         }
 
-        //Get the data from the Model and send them to the View
+        //Add to the hive
         $this->_f3->set('indoorInterests', DataLayer::getIndoorInterests());
         $this->_f3->set('outdoorInterests', DataLayer::getOutdoorInterests());
-
-        // Add the data to the hive
-        $this->_f3->set('inDoorInterests', $user->getInDoorInterests());
-        $this->_f3->set('outDoorInterests', $user->getOutDoorInterests());
 
         // Display the interests page
         $view = new Template();
@@ -193,6 +211,6 @@ class Controller
         $view = new Template();
         echo $view->render('views/summary.html');
         // clearing the session bucket
-        //unset($_SESSION['member']);
+        unset($_SESSION['member']);
     }
 }

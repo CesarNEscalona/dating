@@ -35,10 +35,21 @@
                 <tr>
                     <td>Seeking: {{ @SESSION.user->getSeeking() }}</td>
                 </tr>
+                <check if="{{ @SESSION.user instanceof PremiumMember }}">
                 <tr>
                     <!-- @Session.user->get.... is an array, so find a way to display whats in that array  -->
-                    <td>Interests: {{ implode(' ', @SESSION.user->getInDoorInterests()) }} {{ implode(' ',@SESSION.user->getOutDoorInterests()) }}</td>
+                    <td>Interests:
+                        <check if="{{ @SESSION.user->getInDoorInterests() != NULL }}">
+                        {{ implode(' ', @SESSION.user->getInDoorInterests()) }}
+                </check>
+
+                <check if="{{ @SESSION.user->getOutDoorInterests() != NULL }}">
+                    {{ implode(' ',@SESSION.user->getOutDoorInterests()) }}
+
+                </check>
+                    </td>
                 </tr>
+                </check>
                 </tbody>
             </table> <!-- End of Table -->
 
