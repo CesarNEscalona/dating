@@ -1,7 +1,8 @@
 <!--
+    dating/views/personalinfo.html
     Author: Cesar Escalona
     SDEV 328 Full Stack Web Dev
-    Dating part 3
+    Dating part 4
 -->
 
 <include href="views/header.html"/>
@@ -20,7 +21,7 @@
                            value="{{ @userName }}">
                         <check if="{{ isset(@errors['name']) }}">
                             <!-- add styles -->
-                            <span class="err">{{ @errors['name'] }}</span>
+                            <span class="err text-danger">{{ @errors['name'] }}</span>
                         </check>
                         <br>
                  <!-- End of First Name -->
@@ -30,7 +31,7 @@
                                value="{{ @userLName }}">
                         <check if="{{ isset(@errors['lName']) }}">
                             <!-- add styles -->
-                            <span class="err">{{ @errors['lName'] }}</span>
+                            <span class="err text-danger">{{ @errors['lName'] }}</span>
                         </check>
                         <br>
                  <!-- End of Last Name -->
@@ -40,7 +41,7 @@
                         value="{{ @Age }}">
                         <check if="{{ isset(@errors['Age']) }}">
                             <!-- add styles -->
-                            <span class="err">{{ @errors['Age'] }}</span>
+                            <span class="err text-danger">{{ @errors['Age'] }}</span>
                         </check>
                         <br>
                 <!-- End of Age -->
@@ -67,7 +68,7 @@
                         <p class="text-muted">Phone number above must match this format: 123-456-7890</p>
                         <check if="{{ isset(@errors['phoneNum']) }}">
                             <!-- add styles -->
-                            <span class="err">{{ @errors['phoneNum'] }}</span>
+                            <span class="err text-danger">{{ @errors['phoneNum'] }}</span>
                         </check>
                  <!-- End of Phone Number -->
 

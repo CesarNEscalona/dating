@@ -1,3 +1,12 @@
+/**
+ * Styles Sheet
+ * dating/styles/styles.css
+ * Cesar Escalona
+ * 06/02/2021
+ *
+ * This file will contain all styles for the dating project
+ */
+
 .font-italic {
     padding-left: 3em;
     padding-right: 3em;
@@ -8,10 +17,6 @@
     height: auto;
 }
 
-.med {
-    width: 50%;
-    height: 50%;
-}
 .left{
     padding-left: 3em;
     padding-right: 3em;
@@ -19,9 +24,9 @@
     text-align: left;
 }
 
-.starter-template {
-    padding: 3rem 1.5rem;
-    text-align: center;
+.med {
+    width: 50%;
+    height: 50%;
 }
 
 #padding {
@@ -29,4 +34,8 @@
     margin-left: 2em;
     margin-top: 1em;
     margin-bottom: 1em;
+}
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
 }

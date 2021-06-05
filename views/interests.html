@@ -1,7 +1,8 @@
 <!--
+    dating/views/interests.html
     Author: Cesar Escalona
     SDEV 328 Full Stack Web Dev
-    Dating part 3
+    Dating part 4
 -->
 
 <include href="views/header.html"/>
@@ -39,7 +40,7 @@
                 </div>
                 <check if="{{ isset(@errors['inDoorInterests']) }}">
                     <!-- add styles -->
-                    <span class="err">{{ @errors['inDoorInterests'] }}</span>
+                    <span class="err text-danger">{{ @errors['inDoorInterests'] }}</span>
                 </check>
         </div>
         <br>
@@ -73,7 +74,7 @@
         </div>
         <check if="{{ isset(@errors['outDoorInterests']) }}">
             <!-- add styles -->
-            <span class="err">{{ @errors['outDoorInterests'] }}</span>
+            <span class="err text-danger">{{ @errors['outDoorInterests'] }}</span>
         </check>
     </div>
     <!-- End of Out door interests-->

@@ -1,17 +1,29 @@
 <?php
 
+/**
+ * dating/controller/controller.php
+ * Cesar Escalona
+ * 06/02/2021
+ *
+ * This is my controller for the Dating project
+ */
 class Controller
 {
     // private instance field
     private $_f3; // router
 
-    // parameterized controller constructor
+    /**
+     * parameterized controller constructor
+     * @param $f3 - Our instance of Fat Free
+     */
     function __construct($f3)
     {
         $this->_f3 = $f3;
     }
 
-    // default route, home page
+    /**
+     * Displays the default route - home page.
+     */
     function home()
     {
         // Display the home page
@@ -19,7 +31,9 @@ class Controller
         echo $view->render('views/home.html');
     }
 
-    // personal info page
+    /**
+     * Displays the personal info page.
+     */
     function personalInfo()
     {
 
@@ -29,10 +43,6 @@ class Controller
         } else {
             $user = new Member();
         }
-        // var_dump($member);
-
-
-
 
         //If the form has been submitted, add the data to session
         //and send the user to the next page
@@ -103,6 +113,9 @@ class Controller
         echo $view->render('views/personalInfo.html');
     }
 
+    /**
+     * Displays the profile page.
+     */
     function profile()
     {
         // initialize all variables to store user input
@@ -150,6 +163,9 @@ class Controller
         echo $view->render('views/profile.html');
     }
 
+    /**
+     * Displays the interests page(Only Premium Members should see this view)
+     */
     function interests()
     {
         // initialize all variables to store user input
@@ -161,7 +177,6 @@ class Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $emptyIndoor = $_POST['iInterests'];
             $emptyOutdoor = $_POST['oInterests'];
-
 
             if(empty($emptyIndoor && $emptyOutdoor)){
                 $user->setInDoorInterests($emptyIndoor);
@@ -205,12 +220,15 @@ class Controller
         echo $view->render('views/interests.html');
     }
 
+    /**
+     * Displays the summary page.
+     */
     function summary()
     {
         //Display the second order form
         $view = new Template();
         echo $view->render('views/summary.html');
         // clearing the session bucket
-        unset($_SESSION['member']);
+        unset($_SESSION['user']);
     }
 }

@@ -1,7 +1,8 @@
 <!--
+    dating/views/profile.html
     Author: Cesar Escalona
     SDEV 328 Full Stack Web Dev
-    Dating part 3
+    Dating part 4
 -->
 
 <include href="views/header.html"/>
@@ -20,7 +21,7 @@
                                value="{{ @Email }}">
                         <check if="{{ isset(@errors['Email']) }}">
                             <!-- add styles -->
-                            <span class="err">{{ @errors['Email'] }}</span>
+                            <span class="err text-danger">{{ @errors['Email'] }}</span>
                         </check>
                         <br>
                      <!-- End of Email -->

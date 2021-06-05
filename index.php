@@ -1,6 +1,11 @@
 <?php
-
-// This is my controller for the Dating project
+/*
+ * dating/index.php
+ * Cesar Escalona
+ * 06/02/2021
+ *
+ * Uses methods from the controller to reroute the user
+ */
 
 // Turn on error reporting
 ini_set('display_errors', 1);

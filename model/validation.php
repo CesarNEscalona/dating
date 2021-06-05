@@ -1,8 +1,23 @@
 <?php
 
+/**
+ * Class DatingValidation
+ * dating/model/validation.php
+ * Cesar Escalona
+ * 06/02/2021
+ *
+ * This file will interact with the controller for my dating project and should check
+ * if the inputted data is valid
+ */
 class DatingValidation
 {
-    // This function checks to see that a string is all alphabetic
+    /**
+     * Checks to make sure a name is valid
+     *
+     * @param $name - name variable that is being checked and returned
+     * @return bool|mixed if name is empty, it fails, otherwise it should be a valid name
+     *
+     */
     static function validName($name)
     {
         if ($name == "") {
@@ -12,7 +27,12 @@ class DatingValidation
         }
     }
 
-// This function checks to see that an age is numeric between 18 and 118
+    /**
+     * Checks to make sure age is within parameters
+     *
+     * @param $age - age variable that is being checked and returned
+     * @return bool|mixed - if age is empty, fails, otherwise should return a valid age
+     */
     static function validAge($age)
     {
         $lower = 18;
@@ -30,7 +50,12 @@ class DatingValidation
         return $age;
     }
 
-// This function checks to see that a phone number is valid
+    /**
+     * Checks to make sure phone number is valid
+     *
+     * @param $phoneNum - required field that must contain digits
+     * @return bool|mixed if empty, fails, otherwise it should be a valid phone number
+     */
     static function validPhone($phoneNum)
     {
         if ($phoneNum == "") {
@@ -41,7 +66,12 @@ class DatingValidation
         return $phoneNum;
     }
 
-// This function checks to see that an email address is valid
+    /**
+     * Checks to make sure email is valid
+     *
+     * @param $email - required field that must contain @ and .com
+     * @return bool|mixed if empty, fails, otherwise it will return a valid email
+     */
     static function validEmail($email)
     {
         $symbol = "/@/i";
@@ -55,7 +85,12 @@ class DatingValidation
         }
     }
 
-// This function checks each selected indoor interest against a list of valid options
+    /**
+     * Checks to make sure indoor interests are within the datalayer interests
+     *
+     * @param $iInterests - Checks against form spoofers
+     * @return bool returns true if interests are valid, false otherwise
+     */
     static function validIndoor($iInterests)
     {
         $validIndoor = DataLayer::getIndoorInterests();
@@ -67,7 +102,12 @@ class DatingValidation
         return true;
     }
 
-// This function checks each selected outdoor interest against a list of valid options
+    /**
+     * Checks to make sure outdoor interests are within the datalayer interests
+     *
+     * @param $oInterests - checks against form spoofers
+     * @return bool returns true if interests are valid, otherwise false
+     */
     static function validOutdoor($oInterests)
     {
         $validOutdoor = DataLayer::getOutdoorInterests();

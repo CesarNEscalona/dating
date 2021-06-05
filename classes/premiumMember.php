@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Premium Member class
+ * dating/classes/premuimMember.php
+ * Cesar Escalona
+ * 06/02/2021
+ *
+ * Used to build a premium member object for use during a session that extends from Member
+ */
 class PremiumMember extends Member
 {
     // private instance variables
@@ -8,6 +16,8 @@ class PremiumMember extends Member
 
 
     /**
+     * Getter for indoor interests
+     *
      * @return mixed|string
      */
     public function getInDoorInterests()
@@ -16,6 +26,8 @@ class PremiumMember extends Member
     }
 
     /**
+     * Setter for indoor interests
+     *
      * @param mixed|string $inDoorInterests
      */
     public function setInDoorInterests($inDoorInterests): void
@@ -24,6 +36,8 @@ class PremiumMember extends Member
     }
 
     /**
+     * Getter for outdoor interests
+     *
      * @return mixed|string
      */
     public function getOutDoorInterests()
@@ -32,6 +46,8 @@ class PremiumMember extends Member
     }
 
     /**
+     * Setter for outdoor interests
+     *
      * @param mixed|string $outDoorInterests
      */
     public function setOutDoorInterests($outDoorInterests): void

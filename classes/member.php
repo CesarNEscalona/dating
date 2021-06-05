@@ -1,6 +1,13 @@
 <?php
 
-
+/**
+ * Member class
+ * dating/classes/member.php
+ * Cesar Escalona
+ * 06/02/2021
+ *
+ * Used to build a member object for use during a session.
+ */
 class Member
 {
     private $_fname;
@@ -14,7 +21,13 @@ class Member
     private $_bio;
 
     /**
-     * Member constructor.
+     * Member constructor. Constructs a member object
+     *
+     * @param string $fname the members first name
+     * @param string $lname the members last name
+     * @param string $age the members age
+     * @param string $gender the members gender
+     * @param string $phone the memebers phone
      */
     public function __construct($fname="", $lname="", $age="", $gender="", $phone="")
     {
@@ -26,7 +39,9 @@ class Member
     }
 
     /**
-     * @return mixed|string
+     * Getter for the users first name
+     *
+     * @return mixed|string $_fname
      */
     public function getFname()
     {
@@ -34,6 +49,8 @@ class Member
     }
 
     /**
+     * Setter for the users first name
+     *
      * @param mixed|string $fname
      */
     public function setFname($fname): void
@@ -42,6 +59,8 @@ class Member
     }
 
     /**
+     * Getter for the users last name
+     *
      * @return mixed|string
      */
     public function getLname()
@@ -50,6 +69,8 @@ class Member
     }
 
     /**
+     * Setter for the users last name
+     *
      * @param mixed|string $lname
      */
     public function setLname($lname): void
@@ -58,6 +79,8 @@ class Member
     }
 
     /**
+     * Getter for the users age
+     *
      * @return mixed|string
      */
     public function getAge()
@@ -66,6 +89,8 @@ class Member
     }
 
     /**
+     * Setter for the users age
+     *
      * @param mixed|string $age
      */
     public function setAge($age): void
@@ -74,6 +99,8 @@ class Member
     }
 
     /**
+     * Getter for the users gender
+     *
      * @return mixed|string
      */
     public function getGender()
@@ -82,6 +109,8 @@ class Member
     }
 
     /**
+     * Setter for the users gender
+     *
      * @param mixed|string $gender
      */
     public function setGender($gender): void
@@ -90,6 +119,8 @@ class Member
     }
 
     /**
+     * Getter for the users phone number
+     *
      * @return mixed|string
      */
     public function getPhone()
@@ -98,6 +129,8 @@ class Member
     }
 
     /**
+     * Setter for the users phone number
+     *
      * @param mixed|string $phone
      */
     public function setPhone($phone): void
@@ -106,6 +139,8 @@ class Member
     }
 
     /**
+     * Getter for the users email
+     *
      * @return mixed
      */
     public function getEmail()
@@ -114,6 +149,8 @@ class Member
     }
 
     /**
+     * Setter for the users email
+     *
      * @param mixed $email
      */
     public function setEmail($email): void
@@ -122,6 +159,8 @@ class Member
     }
 
     /**
+     * Getter for the users state
+     *
      * @return mixed
      */
     public function getState()
@@ -130,6 +169,8 @@ class Member
     }
 
     /**
+     * Setter for the users state
+     *
      * @param mixed $state
      */
     public function setState($state): void
@@ -138,6 +179,8 @@ class Member
     }
 
     /**
+     * Getter for the user seeking
+     *
      * @return mixed
      */
     public function getSeeking()
@@ -146,6 +189,8 @@ class Member
     }
 
     /**
+     * Setter for the user seeking
+     *
      * @param mixed $seeking
      */
     public function setSeeking($seeking): void
@@ -154,6 +199,8 @@ class Member
     }
 
     /**
+     * Getter for the users bio
+     *
      * @return mixed
      */
     public function getBio()
@@ -162,13 +209,12 @@ class Member
     }
 
     /**
+     * Setter for the users bio
+     *
      * @param mixed $bio
      */
     public function setBio($bio): void
     {
         $this->_bio = $bio;
     }
-
-
-
 }

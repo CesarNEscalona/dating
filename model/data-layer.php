@@ -1,10 +1,19 @@
 <?php
-/*
- * Return data for the survey file
+/**
+ * Class Datalayer
+ * dating/model/data-layer.php
+ * Cesar Escalona
+ * 06/02/2021
+ *
+ * This file will interact with the controller for my dating project
  */
 class DataLayer
 {
-    // Creating a function that contains data for the indoor interests
+    /**
+     * Getter for indoor interests to display array
+     *
+     * @return string[] array of indoor interests
+     */
     static function getIndoorInterests()
     {
         return array(
@@ -12,7 +21,11 @@ class DataLayer
             "Playing Cards", "Board Games", "Video Games");
     }
 
-// Creating a function that contains data for the outdoor interests
+    /**
+     * Getter for out door interests
+     *
+     * @return string[] array of outdoor interests
+     */
     static function getOutdoorInterests()
     {
         return array(
